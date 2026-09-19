@@ -134,6 +134,49 @@ real publication and nothing else changes. `CLOSURE_OVERLAY=off` disables it ent
 
 ---
 
+## Deploying to Render
+
+Two services from one repo, defined in [render.yaml](render.yaml): a Python service for
+the agent tools and a Node service for the page.
+
+1. **New → Blueprint** in Render, pointed at this repo. Deploy the backend first.
+2. Check it: `curl -s https://<backend>.onrender.com/health` — you want `"status":"ok"`
+   and `"upstream":{"reachable":true}`.
+3. On the web service, set `NEXT_PUBLIC_PYTHON_BACKEND_URL` to that URL and
+   `NEXT_PUBLIC_ELEVENLABS_AGENT_ID` to your agent. Saving triggers a rebuild, which is
+   required: `NEXT_PUBLIC_*` values are inlined at build time, not read at runtime.
+4. Repoint the five tool definitions in ElevenLabs at the new backend URL, and set
+   `ELEVENLABS_WEBHOOK_SECRET` on the backend to match the dashboard secret.
+
+### Warming it before a demo
+
+Free instances sleep after about 15 minutes idle and take roughly 50 seconds to wake —
+far longer than a tool call waits. A sleeping backend means the agent fails on the first
+question of a demo, which is the worst possible moment.
+
+Wake both services a couple of minutes beforehand:
+
+```bash
+curl -s https://<backend>.onrender.com/health > /dev/null
+curl -s https://<web>.onrender.com > /dev/null
+```
+
+Then run one real lookup, which also warms the location cache so the first live answer is
+fast:
+
+```bash
+curl -s -X POST https://<backend>.onrender.com/webhook/find_location \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"Burgdorf","language":"de"}' > /dev/null
+```
+
+For an unattended demo, point a free external pinger (cron-job.org, UptimeRobot) at the
+backend's `/health` every 10 minutes for the day. Ping the backend only — Render's free
+tier allots a fixed number of instance hours per month, and keeping both services awake
+around the clock will exhaust it.
+
+---
+
 ## Targets
 
 The brief sets ≥70% containment and ≥95% language detection. Evaluation criteria to

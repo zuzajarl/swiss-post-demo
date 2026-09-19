@@ -15,16 +15,15 @@ services:
     name: swisspost-agent-backend
     runtime: python
     region: frankfurt
-    # Free instances sleep after ~15 minutes idle and take ~50s to wake. An
-    # ElevenLabs tool call times out long before that, so the agent would fail
-    # mid-sentence on the first question of a demo. Starter stays warm.
-    plan: starter
+    # Free instances sleep after ~15 minutes idle and take ~50s to wake, which
+    # is far longer than a tool call will wait. Warm this service before any
+    # demo (see README), or keep it awake with an external ping.
+    plan: free
     buildCommand: pip install -r backend/requirements.txt
     startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
-    # The tool-activity feed and the location cache are per-process, so a second
-    # instance would serve a demo half-blind. Keep this at one.
-    numInstances: 1
+    # Note: the tool-activity feed and the location cache are per-process, so
+    # this must stay single-instance. Free plans are single-instance anyway.
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.9
@@ -42,7 +41,9 @@ services:
     name: swisspost-agent-web
     runtime: node
     region: frankfurt
-    plan: starter
+    # Also sleeps when idle. Less critical than the backend: you open the page
+    # yourself before a demo, which wakes it.
+    plan: free
     buildCommand: npm ci && npm run build
     startCommand: npm start
     envVars:
