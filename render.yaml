@@ -1,0 +1,56 @@
+# Render blueprint — two services from one repo.
+#
+#   swisspost-agent-backend : FastAPI, serves the five agent tools. This is the
+#                             URL ElevenLabs calls, so it must stay reachable.
+#   swisspost-agent-web     : Next.js demo page.
+#
+# Deploy the backend first: the web service needs its URL at BUILD time, because
+# NEXT_PUBLIC_* values are inlined into the bundle rather than read at runtime.
+#
+# Instance sizing is deliberate, not incidental — see the note on `plan` below.
+
+services:
+  # ─── Agent tools ────────────────────────────────────────────────────────────
+  - type: web
+    name: swisspost-agent-backend
+    runtime: python
+    region: frankfurt
+    # Free instances sleep after ~15 minutes idle and take ~50s to wake. An
+    # ElevenLabs tool call times out long before that, so the agent would fail
+    # mid-sentence on the first question of a demo. Starter stays warm.
+    plan: starter
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    # The tool-activity feed and the location cache are per-process, so a second
+    # instance would serve a demo half-blind. Keep this at one.
+    numInstances: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      # Set in the dashboard once the agent exists in ElevenLabs. Leaving it
+      # empty disables signature checking — fine locally, not in public.
+      - key: ELEVENLABS_WEBHOOK_SECRET
+        sync: false
+      - key: CLOSURE_OVERLAY
+        value: "on"
+      - key: SWISSPOST_API_TIMEOUT
+        value: "8"
+
+  # ─── Demo page ──────────────────────────────────────────────────────────────
+  - type: web
+    name: swisspost-agent-web
+    runtime: node
+    region: frankfurt
+    plan: starter
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "20.11.1"
+      # Both are read at build time. Changing either triggers a rebuild on
+      # Render, which is what you want — a stale value would be baked in.
+      - key: NEXT_PUBLIC_ELEVENLABS_AGENT_ID
+        sync: false
+      - key: NEXT_PUBLIC_PYTHON_BACKEND_URL
+        sync: false
