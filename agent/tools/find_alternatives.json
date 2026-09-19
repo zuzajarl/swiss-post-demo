@@ -1,0 +1,97 @@
+{
+  "type": "webhook",
+  "name": "find_alternatives",
+  "description": "Find the nearest usable Swiss Post access points around a location — staffed branches, partner counters, parcel terminals and, for cash, Postomats — live from Swiss Post, ranked by distance. Always call this after telling a caller their branch is closing, closed or converted; never leave them without somewhere to go. Pass service when the caller named one, so a parcel terminal is not offered to someone who wants to pay a bill. The search widens automatically when nothing is nearby, and returns three options. RETURNS { found, origin, alternatives, searched_service, error }. Each alternative has address, distance_km, walking_minutes, open_now, open_until and service_labels. walking_minutes is null when the place is too far to walk — give the distance instead of inventing a travel time. Locations whose closure has already taken effect are excluded.",
+  "disable_interruptions": false,
+  "interruption_mode": "allow",
+  "force_pre_tool_speech": false,
+  "pre_tool_speech": "auto",
+  "tool_call_sound": null,
+  "tool_call_sound_behavior": "auto",
+  "tool_error_handling_mode": "auto",
+  "execution_mode": "immediate",
+  "follow_redirects": false,
+  "follow_redirects_allowed_domains": [],
+  "api_schema": {
+    "url": "https://michell-perigonial-ashlyn.ngrok-free.dev/webhook/find_alternatives",
+    "method": "POST",
+    "path_params_schema": [],
+    "query_params_schema": [],
+    "request_body_schema": {
+      "id": "body",
+      "type": "object",
+      "description": "Nearby access point search around a branch or a place.",
+      "properties": [
+        {
+          "id": "location_id",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Id of the branch the caller is asking about, from find_location. Preferred over query.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": false
+        },
+        {
+          "id": "query",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "Municipality or postcode, only when no location_id is known yet. Empty string if location_id is given.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": false
+        },
+        {
+          "id": "service",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "What the caller needs, if they named it: 'letters', 'parcels', 'payments', 'cash' or 'philately'. Empty string if they just want the nearest option generally.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": false
+        },
+        {
+          "id": "language",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "The language the caller is speaking, as a two-letter code: 'de', 'fr', 'it' or 'en'. Location names, service labels, status labels and holiday names come back in it.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        }
+      ],
+      "required": false,
+      "dynamic_variable": "",
+      "value_type": "llm_prompt"
+    },
+    "request_headers": [
+      {
+        "type": "value",
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "type": "value",
+        "name": "ngrok-skip-browser-warning",
+        "value": "true"
+      }
+    ],
+    "content_type": "application/json",
+    "auth_connection": null,
+    "mtls_auth_connection": null,
+    "response_filter": null
+  },
+  "assignments": [],
+  "response_timeout_secs": 20,
+  "dynamic_variables": {
+    "dynamic_variable_placeholders": {}
+  },
+  "response_mocks": []
+}

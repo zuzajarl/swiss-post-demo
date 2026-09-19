@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "purpose": "Planned branch closures, joined onto live Swiss Post location records by POI id.",
+    "why_this_file_exists": "The public Swiss Post location API (places.post.ch/StandortSuche/StaoCacheServiceV2) describes the network as it stands today. It has no closure field: a branch that has already closed is simply absent from it, and a closure announced for next year looks identical to any other open branch. Planned closures come from the branch network publication instead, and are joined on here by POI id. Everything else the agent says about a location — address, coordinates, opening hours, holidays, services, whether it is open right now — comes live from the API.",
+    "disclaimer": "DEMO OVERLAY. The POI ids below are real and resolve against the live API, but the closure dates, successor assignments and notes attached to them are invented for this demonstration and do not represent any Swiss Post announcement. For a pilot, replace `closures` with the real branch network publication and leave the rest of the pipeline untouched.",
+    "production_note": "Set CLOSURE_OVERLAY=off to disable the overlay entirely. Every location then reports the status the live API supports, which is 'open'.",
+    "statuses": {
+      "closing": "Closure announced, still open until closure_date",
+      "closed": "Already closed on closure_date; will usually be absent from the live API too",
+      "converted": "Still serving customers, but converted from a staffed branch into a partner branch"
+    }
+  },
+
+  "programme": {
+    "name": {
+      "de": "Filialnetz-Entwicklung 2026–2028",
+      "fr": "Évolution du réseau de filiales 2026–2028",
+      "it": "Evoluzione della rete di filiali 2026–2028",
+      "en": "Branch network development 2026–2028"
+    },
+    "total_branches_affected": 170,
+    "municipalities_affected": 155,
+    "end_year": 2028
+  },
+
+  "phases": [
+    { "year": 2025, "branches": 28, "status": "completed" },
+    { "year": 2026, "branches": 46, "status": "in_progress" },
+    { "year": 2027, "branches": 58, "status": "planned" },
+    { "year": 2028, "branches": 38, "status": "planned" }
+  ],
+
+  "commitments": [
+    {
+      "id": "universal_service",
+      "de": "Der Zugang zur postalischen Grundversorgung bleibt in jeder Gemeinde gewährleistet.",
+      "fr": "L'accès au service postal universel reste garanti dans chaque commune.",
+      "it": "L'accesso al servizio postale universale resta garantito in ogni comune.",
+      "en": "Access to the universal postal service remains guaranteed in every municipality."
+    },
+    {
+      "id": "consultation",
+      "de": "Jede betroffene Gemeinde wird vor einer Umwandlung konsultiert; die Gespräche beginnen mindestens sechs Monate vor dem Stichtag.",
+      "fr": "Chaque commune concernée est consultée avant toute transformation; les discussions commencent au moins six mois avant la date effective.",
+      "it": "Ogni comune interessato viene consultato prima di una trasformazione; i colloqui iniziano almeno sei mesi prima della data effettiva.",
+      "en": "Every affected municipality is consulted before a conversion; discussions begin at least six months before the effective date."
+    },
+    {
+      "id": "reachability",
+      "de": "Für 90 Prozent der Bevölkerung ist eine Zugangsstelle in höchstens 20 Minuten zu Fuss oder mit dem öffentlichen Verkehr erreichbar.",
+      "fr": "Pour 90 pour cent de la population, un point d'accès est atteignable en 20 minutes au maximum à pied ou en transports publics.",
+      "it": "Per il 90 per cento della popolazione, un punto di accesso è raggiungibile in al massimo 20 minuti a piedi o con i trasporti pubblici.",
+      "en": "For 90 percent of the population, an access point is reachable within 20 minutes on foot or by public transport."
+    },
+    {
+      "id": "home_service",
+      "de": "Wer eine Filiale nicht erreichen kann, nutzt den Hausservice: Die Zustellerin oder der Zusteller nimmt Sendungen an der Haustür entgegen und liefert Bargeld aus.",
+      "fr": "Les personnes ne pouvant se rendre en filiale utilisent le service à domicile: le facteur prend en charge les envois à la porte et remet des espèces.",
+      "it": "Chi non può recarsi in filiale utilizza il servizio a domicilio: il postino ritira gli invii alla porta e consegna contanti.",
+      "en": "Anyone unable to reach a branch can use the home service: the carrier accepts items at the front door and delivers cash."
+    }
+  ],
+
+  "closures": [
+    {
+      "poi_id": "001PST_001106852",
+      "name": "Post Filiale 3400 Burgdorf 1",
+      "status": "closing",
+      "closure_date": "2026-12-31",
+      "successor_search": { "radius_km": 2.0, "types": ["T1", "T6"] }
+    },
+    {
+      "poi_id": "001PST_001114030",
+      "name": "Post Filiale 1400 Yverdon-les-Bains 1",
+      "status": "closing",
+      "closure_date": "2027-01-31",
+      "successor_search": { "radius_km": 2.5, "types": ["T1", "T6"] }
+    },
+    {
+      "poi_id": "001PST_0014667",
+      "name": "Post Filiale 6850 Mendrisio Borgo",
+      "status": "closing",
+      "closure_date": "2026-09-30",
+      "successor_search": { "radius_km": 2.5, "types": ["T9", "T1", "T6"] }
+    },
+    {
+      "poi_id": "001PST_001125901",
+      "name": "Post Filiale 8610 Uster 1",
+      "status": "closing",
+      "closure_date": "2027-03-31",
+      "successor_search": { "radius_km": 3.0, "types": ["T9", "T1", "T6"] }
+    },
+    {
+      "poi_id": "001PST_001102755",
+      "name": "Post Filiale 2540 Grenchen 1",
+      "status": "closing",
+      "closure_date": "2026-12-31",
+      "successor_search": { "radius_km": 2.5, "types": ["T9", "T1", "T6"] }
+    },
+    {
+      "poi_id": "001PST_001114627",
+      "name": "Post Filiale 1920 Martigny 1",
+      "status": "closing",
+      "closure_date": "2027-06-30",
+      "successor_search": { "radius_km": 2.5, "types": ["T9", "T1", "T6"] }
+    },
+    {
+      "poi_id": "001PST_0015144",
+      "name": "Post Filiale 9100 Herisau 1",
+      "status": "converted",
+      "closure_date": "2026-03-31",
+      "successor_search": { "radius_km": 3.0, "types": ["T1", "T6"] }
+    },
+    {
+      "poi_id": "001PST_001124237",
+      "name": "Post Filiale 6710 Biasca",
+      "status": "converted",
+      "closure_date": "2026-05-29",
+      "successor_search": { "radius_km": 3.0, "types": ["T1", "T6"] }
+    },
+    {
+      "poi_id": "001PST_001114859",
+      "name": "Post Filiale 1530 Payerne",
+      "status": "converted",
+      "closure_date": "2026-06-30",
+      "successor_search": { "radius_km": 3.0, "types": ["T1", "T6"] }
+    }
+  ]
+}

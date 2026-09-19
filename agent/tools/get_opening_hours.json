@@ -1,0 +1,86 @@
+{
+  "type": "webhook",
+  "name": "get_opening_hours",
+  "description": "Get the opening hours of one location for a given day, live from Swiss Post, with that location's own public holiday calendar already applied. Also returns the whole week and the next upcoming holidays. Use it when the caller asks when somewhere is open, whether it is open today or tomorrow, or whether it opens on a holiday. Requires a location_id from find_location or find_alternatives. RETURNS { found, location, date, open, windows, holiday, week, upcoming_holidays, error }. windows is a list of from/to pairs; two entries means the location closes over lunch — say both. An empty windows list together with a holiday name means it is closed for that holiday.",
+  "disable_interruptions": false,
+  "interruption_mode": "allow",
+  "force_pre_tool_speech": false,
+  "pre_tool_speech": "auto",
+  "tool_call_sound": null,
+  "tool_call_sound_behavior": "auto",
+  "tool_error_handling_mode": "auto",
+  "execution_mode": "immediate",
+  "follow_redirects": false,
+  "follow_redirects_allowed_domains": [],
+  "api_schema": {
+    "url": "https://michell-perigonial-ashlyn.ngrok-free.dev/webhook/opening_hours",
+    "method": "POST",
+    "path_params_schema": [],
+    "query_params_schema": [],
+    "request_body_schema": {
+      "id": "body",
+      "type": "object",
+      "description": "Opening hours lookup for one location id on one date.",
+      "properties": [
+        {
+          "id": "location_id",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "The id returned by find_location or find_alternatives.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "date",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "ISO date, YYYY-MM-DD. Empty string for today. Convert relative dates like 'tomorrow' or 'next Saturday' to a concrete ISO date before calling.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": false
+        },
+        {
+          "id": "language",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "The language the caller is speaking, as a two-letter code: 'de', 'fr', 'it' or 'en'. Location names, service labels, status labels and holiday names come back in it.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        }
+      ],
+      "required": false,
+      "dynamic_variable": "",
+      "value_type": "llm_prompt"
+    },
+    "request_headers": [
+      {
+        "type": "value",
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "type": "value",
+        "name": "ngrok-skip-browser-warning",
+        "value": "true"
+      }
+    ],
+    "content_type": "application/json",
+    "auth_connection": null,
+    "mtls_auth_connection": null,
+    "response_filter": null
+  },
+  "assignments": [],
+  "response_timeout_secs": 20,
+  "dynamic_variables": {
+    "dynamic_variable_placeholders": {}
+  },
+  "response_mocks": []
+}

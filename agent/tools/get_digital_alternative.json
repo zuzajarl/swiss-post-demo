@@ -1,0 +1,75 @@
+{
+  "type": "webhook",
+  "name": "get_digital_alternative",
+  "description": "Map what the caller wants to do onto the digital or doorstep services that remove the need for a counter visit — Post App, digital stamps, E-Post, online redirection, eBill, My Post 24 and the home service. Use it when the errand itself can be done without travelling, which is often a better answer than an address two villages away. RETURNS { found, intent, services }, each service with name, channel, url, replaces_counter_visit and a description in the caller's language, best option first. Offer the first one once. If the caller says they want a counter, or that they do not use apps, drop it and give them a location instead.",
+  "disable_interruptions": false,
+  "interruption_mode": "allow",
+  "force_pre_tool_speech": false,
+  "pre_tool_speech": "auto",
+  "tool_call_sound": null,
+  "tool_call_sound_behavior": "auto",
+  "tool_error_handling_mode": "auto",
+  "execution_mode": "immediate",
+  "follow_redirects": false,
+  "follow_redirects_allowed_domains": [],
+  "api_schema": {
+    "url": "https://michell-perigonial-ashlyn.ngrok-free.dev/webhook/digital_alternatives",
+    "method": "POST",
+    "path_params_schema": [],
+    "query_params_schema": [],
+    "request_body_schema": {
+      "id": "body",
+      "type": "object",
+      "description": "Digital or doorstep alternatives for what the caller wants to do.",
+      "properties": [
+        {
+          "id": "intent",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "What the caller is trying to do. One of: send_letter, send_parcel, receive_parcel, track_shipment, pay_bill, redirect_mail, hold_mail, buy_stamps, collect_registered, cash_withdrawal, change_address.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "language",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "The language the caller is speaking, as a two-letter code: 'de', 'fr', 'it' or 'en'. Location names, service labels, status labels and holiday names come back in it.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        }
+      ],
+      "required": false,
+      "dynamic_variable": "",
+      "value_type": "llm_prompt"
+    },
+    "request_headers": [
+      {
+        "type": "value",
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "type": "value",
+        "name": "ngrok-skip-browser-warning",
+        "value": "true"
+      }
+    ],
+    "content_type": "application/json",
+    "auth_connection": null,
+    "mtls_auth_connection": null,
+    "response_filter": null
+  },
+  "assignments": [],
+  "response_timeout_secs": 20,
+  "dynamic_variables": {
+    "dynamic_variable_placeholders": {}
+  },
+  "response_mocks": []
+}

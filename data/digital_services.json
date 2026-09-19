@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "disclaimer": "Descriptions of Swiss Post digital services, written for the demo. Service names are real; wording is the demo's own and is not official Swiss Post copy.",
+    "intents": [
+      "send_letter",
+      "send_parcel",
+      "receive_parcel",
+      "track_shipment",
+      "pay_bill",
+      "redirect_mail",
+      "hold_mail",
+      "buy_stamps",
+      "collect_registered",
+      "cash_withdrawal",
+      "change_address"
+    ]
+  },
+  "services": [
+    {
+      "id": "post_app",
+      "name": "Post-App",
+      "channel": "app",
+      "url": "https://www.post.ch/app",
+      "intents": [
+        "track_shipment",
+        "receive_parcel",
+        "redirect_mail",
+        "hold_mail",
+        "buy_stamps",
+        "collect_registered"
+      ],
+      "replaces_counter_visit": true,
+      "description": {
+        "de": "Die Post-App zeigt alle Sendungen in Echtzeit, erlaubt das Umleiten oder Zurückbehalten von Paketen, den Kauf digitaler Briefmarken und die Freigabe für eingeschriebene Sendungen — ohne Schaltergang.",
+        "fr": "L'app Poste affiche tous les envois en temps réel, permet de rediriger ou de retenir des colis, d'acheter des timbres numériques et de donner l'autorisation pour les envois recommandés — sans passer au guichet.",
+        "it": "L'app della Posta mostra tutti gli invii in tempo reale, consente di deviare o trattenere i pacchi, di acquistare francobolli digitali e di autorizzare gli invii raccomandati — senza recarsi allo sportello.",
+        "en": "The Post App shows every shipment in real time, lets you redirect or hold parcels, buy digital stamps and authorise registered items — without visiting a counter."
+      }
+    },
+    {
+      "id": "digital_stamp",
+      "name": "WebStamp / Digitale Briefmarke",
+      "channel": "web",
+      "url": "https://www.post.ch/webstamp",
+      "intents": [
+        "buy_stamps",
+        "send_letter"
+      ],
+      "replaces_counter_visit": true,
+      "description": {
+        "de": "Briefmarken lassen sich online kaufen und selbst ausdrucken, oder als Code per SMS beziehen und von Hand auf die Sendung schreiben.",
+        "fr": "Les timbres s'achètent en ligne et s'impriment soi-même, ou s'obtiennent sous forme de code par SMS à recopier à la main sur l'envoi.",
+        "it": "I francobolli si acquistano online e si stampano da sé, oppure si ottengono come codice via SMS da scrivere a mano sull'invio.",
+        "en": "Stamps can be bought online and printed at home, or obtained as an SMS code to write by hand on the item."
+      },
+      "name_i18n": {
+        "de": "WebStamp / Digitale Briefmarke",
+        "fr": "WebStamp / timbre numérique",
+        "it": "WebStamp / francobollo digitale",
+        "en": "WebStamp / digital stamp"
+      }
+    },
+    {
+      "id": "digital_letter",
+      "name": "E-Post / Digitaler Brief",
+      "channel": "web",
+      "url": "https://www.post.ch/epost",
+      "intents": [
+        "send_letter"
+      ],
+      "replaces_counter_visit": true,
+      "description": {
+        "de": "Physische Briefe werden digitalisiert und in der App zugestellt; ausgehende Briefe können digital eingereicht und von der Post gedruckt und versandt werden.",
+        "fr": "Les lettres physiques sont numérisées et remises dans l'app; les lettres sortantes peuvent être soumises en ligne, puis imprimées et expédiées par la Poste.",
+        "it": "Le lettere fisiche vengono digitalizzate e recapitate nell'app; le lettere in uscita possono essere inviate online e stampate e spedite dalla Posta.",
+        "en": "Physical letters are digitised and delivered in the app; outgoing letters can be submitted online, then printed and posted by Swiss Post."
+      },
+      "name_i18n": {
+        "de": "E-Post / Digitaler Brief",
+        "fr": "E-Post / lettre numérique",
+        "it": "E-Post / lettera digitale",
+        "en": "E-Post / digital letter"
+      }
+    },
+    {
+      "id": "mypost24",
+      "name": "My Post 24",
+      "channel": "terminal",
+      "url": "https://www.post.ch/mypost24",
+      "intents": [
+        "send_parcel",
+        "receive_parcel"
+      ],
+      "replaces_counter_visit": true,
+      "description": {
+        "de": "Automat für das Aufgeben und Abholen von Paketen, rund um die Uhr an sieben Tagen die Woche.",
+        "fr": "Automate pour le dépôt et le retrait de colis, 24 heures sur 24, sept jours sur sept.",
+        "it": "Automat per la spedizione e il ritiro di pacchi, 24 ore su 24, sette giorni su sette.",
+        "en": "Terminal for dropping off and collecting parcels, around the clock, seven days a week."
+      }
+    },
+    {
+      "id": "home_service",
+      "name": "Hausservice",
+      "channel": "doorstep",
+      "url": "https://www.post.ch/hausservice",
+      "intents": [
+        "send_letter",
+        "send_parcel",
+        "buy_stamps",
+        "cash_withdrawal",
+        "pay_bill"
+      ],
+      "replaces_counter_visit": true,
+      "description": {
+        "de": "Die Zustellerin oder der Zusteller nimmt Sendungen an der Haustür entgegen, verkauft Briefmarken und liefert Bargeld — kostenlos, wenn keine Filiale in zumutbarer Distanz liegt.",
+        "fr": "Le facteur prend en charge les envois à la porte, vend des timbres et remet des espèces — gratuitement lorsqu'aucune filiale n'est à distance raisonnable.",
+        "it": "Il postino ritira gli invii alla porta, vende francobolli e consegna contanti — gratuitamente se nessuna filiale è a distanza ragionevole.",
+        "en": "The carrier accepts items at the front door, sells stamps and delivers cash — free of charge where no branch is within reasonable distance."
+      },
+      "name_i18n": {
+        "de": "Hausservice",
+        "fr": "service à domicile",
+        "it": "servizio a domicilio",
+        "en": "home service"
+      }
+    },
+    {
+      "id": "mail_redirect",
+      "name": "Nachsendeauftrag",
+      "channel": "web",
+      "url": "https://www.post.ch/umzug",
+      "intents": [
+        "redirect_mail",
+        "change_address"
+      ],
+      "replaces_counter_visit": true,
+      "description": {
+        "de": "Nachsendung und Adressänderung lassen sich vollständig online erfassen; ein Schaltergang ist nicht nötig.",
+        "fr": "La réexpédition et le changement d'adresse se font entièrement en ligne; aucun passage au guichet n'est nécessaire.",
+        "it": "La rispedizione e il cambio di indirizzo si effettuano interamente online; non serve recarsi allo sportello.",
+        "en": "Redirection and change of address can be set up entirely online; no counter visit is needed."
+      },
+      "name_i18n": {
+        "de": "Nachsendeauftrag",
+        "fr": "ordre de réexpédition",
+        "it": "ordine di rispedizione",
+        "en": "mail redirection order"
+      }
+    },
+    {
+      "id": "ebill",
+      "name": "eBill / E-Finance",
+      "channel": "web",
+      "url": "https://www.postfinance.ch",
+      "intents": [
+        "pay_bill"
+      ],
+      "replaces_counter_visit": true,
+      "description": {
+        "de": "Rechnungen werden digital zugestellt und per E-Finance bezahlt. Einzahlungen am Schalter sind weiterhin in Filialen mit Partner möglich.",
+        "fr": "Les factures sont remises numériquement et payées via E-Finance. Les versements au guichet restent possibles dans les filiales en partenariat.",
+        "it": "Le fatture vengono recapitate digitalmente e pagate tramite E-Finance. I versamenti allo sportello restano possibili nelle filiali in partenariato.",
+        "en": "Bills are delivered digitally and paid via E-Finance. Counter payments remain available at partner branches."
+      }
+    },
+    {
+      "id": "pickpost",
+      "name": "PickPost",
+      "channel": "counter",
+      "url": "https://www.post.ch/pickpost",
+      "intents": [
+        "receive_parcel",
+        "collect_registered"
+      ],
+      "replaces_counter_visit": false,
+      "description": {
+        "de": "Sendungen werden an eine frei wählbare Abholstelle geliefert statt nach Hause — nützlich, wenn die bisherige Filiale geschlossen wurde.",
+        "fr": "Les envois sont livrés à un point de retrait librement choisi plutôt qu'à domicile — utile lorsque la filiale habituelle a fermé.",
+        "it": "Gli invii vengono consegnati a un punto di ritiro a scelta anziché a domicilio — utile quando la filiale abituale ha chiuso.",
+        "en": "Items are delivered to a pickup point of your choice instead of your home — useful when your usual branch has closed."
+      }
+    }
+  ]
+}

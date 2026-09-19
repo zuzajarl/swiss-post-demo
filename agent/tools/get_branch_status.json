@@ -1,0 +1,75 @@
+{
+  "type": "webhook",
+  "name": "get_branch_status",
+  "description": "Get the closure status of one location: open, closing on a date, already closed, or converted to a partner branch. When the location is affected it also returns the nearest replacements. Requires a location_id from find_location — never guess one. Use this for every 'is my branch closing' and 'when does it close' question and never answer those from memory. RETURNS { found, location, status, closure_date, days_until_closure, successors, commitment_note, error }. status is open, closing, closed or converted; 'converted' means the counter still exists inside a shop — say that rather than calling it a closure. days_until_closure is the number worth saying when a closure is near, and is negative once the date has passed. successors is empty for an unaffected branch. If error is present, say you cannot look it up right now and never invent a date.",
+  "disable_interruptions": false,
+  "interruption_mode": "allow",
+  "force_pre_tool_speech": false,
+  "pre_tool_speech": "auto",
+  "tool_call_sound": null,
+  "tool_call_sound_behavior": "auto",
+  "tool_error_handling_mode": "auto",
+  "execution_mode": "immediate",
+  "follow_redirects": false,
+  "follow_redirects_allowed_domains": [],
+  "api_schema": {
+    "url": "https://michell-perigonial-ashlyn.ngrok-free.dev/webhook/branch_status",
+    "method": "POST",
+    "path_params_schema": [],
+    "query_params_schema": [],
+    "request_body_schema": {
+      "id": "body",
+      "type": "object",
+      "description": "Closure status lookup for one location id.",
+      "properties": [
+        {
+          "id": "location_id",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "The id returned by find_location, for example '001PST_001106852'.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "language",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "The language the caller is speaking, as a two-letter code: 'de', 'fr', 'it' or 'en'. Location names, service labels, status labels and holiday names come back in it.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        }
+      ],
+      "required": false,
+      "dynamic_variable": "",
+      "value_type": "llm_prompt"
+    },
+    "request_headers": [
+      {
+        "type": "value",
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "type": "value",
+        "name": "ngrok-skip-browser-warning",
+        "value": "true"
+      }
+    ],
+    "content_type": "application/json",
+    "auth_connection": null,
+    "mtls_auth_connection": null,
+    "response_filter": null
+  },
+  "assignments": [],
+  "response_timeout_secs": 20,
+  "dynamic_variables": {
+    "dynamic_variable_placeholders": {}
+  },
+  "response_mocks": []
+}

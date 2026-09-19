@@ -1,0 +1,75 @@
+{
+  "type": "webhook",
+  "name": "find_location",
+  "description": "Resolve what the caller said into real Swiss Post locations, live from Swiss Post's public location service. Accepts a municipality, a four-digit postcode, a branch name, or a whole spoken sentence such as 'die Post in Burgdorf' — filler words are stripped automatically. Call this first, before any other location tool; every other tool needs a location_id from here. Results are ordered with staffed branches first, then partner counters, then parcel terminals, so the first result is usually the one the caller means. RETURNS { found, ambiguous, matched_via, locations, places, ask_for_postcode, error }. Each location has id, name, type_label, address, service_labels, open_now, open_until, distance_km, walking_minutes, status, status_label, closure_date, days_until_closure. If ambiguous is true, read the options back and let the caller choose. If ask_for_postcode is true nothing matched — ask for the four-digit postcode. If error is present the location service could not be reached: say you cannot look it up right now and never invent an answer.",
+  "disable_interruptions": false,
+  "interruption_mode": "allow",
+  "force_pre_tool_speech": false,
+  "pre_tool_speech": "auto",
+  "tool_call_sound": null,
+  "tool_call_sound_behavior": "auto",
+  "tool_error_handling_mode": "auto",
+  "execution_mode": "immediate",
+  "follow_redirects": false,
+  "follow_redirects_allowed_domains": [],
+  "api_schema": {
+    "url": "https://michell-perigonial-ashlyn.ngrok-free.dev/webhook/find_location",
+    "method": "POST",
+    "path_params_schema": [],
+    "query_params_schema": [],
+    "request_body_schema": {
+      "id": "body",
+      "type": "object",
+      "description": "Location lookup: what the caller said, plus the language they said it in.",
+      "properties": [
+        {
+          "id": "query",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "What the caller said about the location — municipality, postcode, branch name, or the whole phrase. Pass it through as spoken; do not clean it up.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        },
+        {
+          "id": "language",
+          "type": "string",
+          "value_type": "llm_prompt",
+          "description": "The language the caller is speaking, as a two-letter code: 'de', 'fr', 'it' or 'en'. Location names, service labels, status labels and holiday names come back in it.",
+          "dynamic_variable": "",
+          "constant_value": "",
+          "enum": null,
+          "is_system_provided": false,
+          "required": true
+        }
+      ],
+      "required": false,
+      "dynamic_variable": "",
+      "value_type": "llm_prompt"
+    },
+    "request_headers": [
+      {
+        "type": "value",
+        "name": "Content-Type",
+        "value": "application/json"
+      },
+      {
+        "type": "value",
+        "name": "ngrok-skip-browser-warning",
+        "value": "true"
+      }
+    ],
+    "content_type": "application/json",
+    "auth_connection": null,
+    "mtls_auth_connection": null,
+    "response_filter": null
+  },
+  "assignments": [],
+  "response_timeout_secs": 20,
+  "dynamic_variables": {
+    "dynamic_variable_placeholders": {}
+  },
+  "response_mocks": []
+}
